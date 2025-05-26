@@ -1,7 +1,6 @@
 ---
 layout: home
 title: Welcome
-banner: "/assets/images/banners/home.jpg"
 ---
 
 # Welcome to My Portfolio
