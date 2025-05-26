@@ -1,0 +1,34 @@
+title: Murat Can Berber
+description: Personal Portfolio & Blog
+baseurl: ""
+url: "https://muratcanberber.github.io"
+
+# Theme settings
+remote_theme: jeffreytse/jekyll-theme-yat
+color_scheme: dark
+
+# Author settings
+author:
+  name: Murat Can Berber
+  email: your.email@example.com
+  github: muratcanberber
+  linkedin: your-linkedin-username
+  
+# Navigation
+header_pages:
+  - index.html
+  - about.md
+  - portfolio.md
+  - blog.md
+
+# Build settings
+markdown: kramdown
+plugins:
+  - jekyll-feed
+  - jekyll-seo-tag
+  - jekyll-remote-theme
+
+exclude:
+  - Gemfile
+  - Gemfile.lock
+  - vendor
