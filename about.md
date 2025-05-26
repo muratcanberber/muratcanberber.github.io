@@ -5,7 +5,7 @@ title: About Me
 
 # About Me
 
-I'm Murat Can Berber, a passionate developer with a love for creating innovative solutions. 
+I'm Murat Can Berber, a passionate developer with a love for creating innovative solutions.
 
 ## Background
 
