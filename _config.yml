@@ -4,6 +4,7 @@ baseurl: ""
 url: "https://muratcanberber.github.io"
 
 # Theme settings
+theme: jekyll-theme-minimal
 remote_theme: jeffreytse/jekyll-theme-yat
 color_scheme: dark
 
