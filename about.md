@@ -1,21 +1,35 @@
 ---
-layout: about
+layout: default
 title: About Me
 ---
 
-# About Me
+<div class="about-section">
+    <h1>About Me</h1>
+    <p class="lead">IoT Solutions Architect & Software Engineer passionate about bridging the physical and digital worlds through innovative technology.</p>
+</div>
 
-I'm Murat Can Berber, a passionate developer with a love for creating innovative solutions.
+## Technical Expertise
 
-## Background
+### IoT & Industrial Automation
+- **ThingWorx** Platform Development and Administration
+- Industrial IoT Solution Architecture
+- Sensor Integration and Data Acquisition
+- Real-time Monitoring Systems
+- PLC Integration and Industrial Protocols
 
-[Add your background information here]
+### Software Development
+- **Python** Application Development
+- Web Services and REST APIs
+- Microservices Architecture
+- Test-Driven Development
+- CI/CD Implementation
 
-## Skills
-
-- Programming Languages: [List your languages]
-- Frameworks & Tools: [List your frameworks]
-- Other Skills: [List other relevant skills]
+### Database Engineering
+- **PostgreSQL** Database Design and Optimization
+- High-Performance Data Solutions
+- Database Security Implementation
+- Backup and Recovery Strategies
+- Data Migration and ETL Processes
 
 ## Experience
 
