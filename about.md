@@ -3,46 +3,73 @@ layout: default
 title: About Me
 ---
 
-<div class="about-section">
+<div class="hero-section">
     <h1>About Me</h1>
     <p class="lead">IoT Solutions Architect & Software Engineer passionate about bridging the physical and digital worlds through innovative technology.</p>
 </div>
 
 ## Technical Expertise
 
-### IoT & Industrial Automation
-- **ThingWorx** Platform Development and Administration
-- Industrial IoT Solution Architecture
-- Sensor Integration and Data Acquisition
-- Real-time Monitoring Systems
-- PLC Integration and Industrial Protocols
-
-### Software Development
-- **Python** Application Development
-- Web Services and REST APIs
-- Microservices Architecture
-- Test-Driven Development
-- CI/CD Implementation
-
-### Database Engineering
-- **PostgreSQL** Database Design and Optimization
-- High-Performance Data Solutions
-- Database Security Implementation
-- Backup and Recovery Strategies
-- Data Migration and ETL Processes
+<div class="expertise-grid">
+    <div class="project-card">
+        <h3>IoT & Industrial Automation</h3>
+        <ul>
+            <li><strong>ThingWorx</strong> Platform Development and Administration</li>
+            <li>Industrial IoT Solution Architecture</li>
+            <li>Sensor Integration and Data Acquisition</li>
+            <li>Real-time Monitoring Systems</li>
+            <li>PLC Integration and Industrial Protocols</li>
+        </ul>
+    </div>
+    <div class="project-card">
+        <h3>Software Development</h3>
+        <ul>
+            <li><strong>Python</strong> Application Development</li>
+            <li>Web Services and REST APIs</li>
+            <li>Microservices Architecture</li>
+            <li>Test-Driven Development</li>
+            <li>CI/CD Implementation</li>
+        </ul>
+    </div>
+    <div class="project-card">
+        <h3>Database Engineering</h3>
+        <ul>
+            <li><strong>PostgreSQL</strong> Database Design and Optimization</li>
+            <li>High-Performance Data Solutions</li>
+            <li>Database Security Implementation</li>
+            <li>Backup and Recovery Strategies</li>
+            <li>Data Migration and ETL Processes</li>
+        </ul>
+    </div>
+</div>
 
 ## Experience
 
-[Add your work experience here]
+<div class="project-card">
+    <h3>Your Current/Recent Position</h3>
+    <p><strong>Company Name</strong> | <em>Start Date - Present</em></p>
+    <ul>
+        <li>Key achievement or responsibility</li>
+        <li>Technology stack and projects</li>
+        <li>Impact and results</li>
+    </ul>
+</div>
 
 ## Education
 
-[Add your education details here]
+<div class="project-card">
+    <h3>Your Degree</h3>
+    <p><strong>University Name</strong> | <em>Graduation Year</em></p>
+    <p>Relevant coursework, honors, or achievements</p>
+</div>
 
 ## Get in Touch
 
-Feel free to reach out to me for collaborations or opportunities:
-
-- GitHub: [@muratcanberber](https://github.com/muratcanberber)
-- LinkedIn: [Your LinkedIn Profile]
-- Email: [Your Email]
+<div style="text-align: center; margin-top: 40px;">
+    <p>I'm always interested in collaborations and opportunities. Feel free to reach out:</p>
+    <div style="margin-top: 20px;">
+        <a href="https://github.com/muratcanberber" class="btn" target="_blank">GitHub</a>
+        <a href="#" class="btn btn-secondary" target="_blank">LinkedIn</a>
+        <a href="mailto:your.email@example.com" class="btn" target="_blank">Email</a>
+    </div>
+</div>
