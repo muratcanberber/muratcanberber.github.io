@@ -4,27 +4,162 @@ title: CodeWithMCB – Industrial IoT & Software
 ---
 
 <style>
+  /* THEME TOKENS – LIGHT DEFAULT */
   :root {
+    --mcb-page-bg: #f3f4f6;
+    --mcb-bg: #f9fafb;
+    --mcb-bg-soft: rgba(249, 250, 251, 0.96);
+    --mcb-card: rgba(255, 255, 255, 0.96);
+    --mcb-border: rgba(148, 163, 184, 0.35);
+    --mcb-accent: #16a34a;
+    --mcb-accent-soft: rgba(22, 163, 74, 0.08);
+    --mcb-text: #020617;
+    --mcb-text-soft: #4b5563;
+    --mcb-radius-lg: 20px;
+    --mcb-radius-xl: 28px;
+    --mcb-shadow-soft: 0 20px 55px rgba(15, 23, 42, 0.18);
+    --mcb-transition: 200ms ease-out;
+  }
+
+  /* DARK PREFERENCES (EĞER TEMA ATANMAMIŞSA) */
+  @media (prefers-color-scheme: dark) {
+    :root {
+      --mcb-page-bg: #020617;
+      --mcb-bg: #020617;
+      --mcb-bg-soft: rgba(15, 23, 42, 0.9);
+      --mcb-card: rgba(15, 23, 42, 0.96);
+      --mcb-border: rgba(148, 163, 184, 0.25);
+      --mcb-accent: #22c55e;
+      --mcb-accent-soft: rgba(34, 197, 94, 0.12);
+      --mcb-text: #e5e7eb;
+      --mcb-text-soft: #9ca3af;
+      --mcb-shadow-soft: 0 24px 70px rgba(15, 23, 42, 0.8);
+    }
+  }
+
+  /* EXPLICIT OVERRIDE: data-theme="light|dark" */
+  :root[data-theme="light"] {
+    --mcb-page-bg: #f3f4f6;
+    --mcb-bg: #f9fafb;
+    --mcb-bg-soft: rgba(249, 250, 251, 0.96);
+    --mcb-card: rgba(255, 255, 255, 0.96);
+    --mcb-border: rgba(148, 163, 184, 0.35);
+    --mcb-accent: #16a34a;
+    --mcb-accent-soft: rgba(22, 163, 74, 0.08);
+    --mcb-text: #020617;
+    --mcb-text-soft: #4b5563;
+    --mcb-shadow-soft: 0 20px 55px rgba(15, 23, 42, 0.18);
+  }
+
+  :root[data-theme="dark"] {
+    --mcb-page-bg: #020617;
     --mcb-bg: #020617;
-    --mcb-bg-soft: rgba(15, 23, 42, 0.85);
-    --mcb-card: rgba(15, 23, 42, 0.95);
+    --mcb-bg-soft: rgba(15, 23, 42, 0.9);
+    --mcb-card: rgba(15, 23, 42, 0.96);
     --mcb-border: rgba(148, 163, 184, 0.25);
     --mcb-accent: #22c55e;
     --mcb-accent-soft: rgba(34, 197, 94, 0.12);
     --mcb-text: #e5e7eb;
     --mcb-text-soft: #9ca3af;
-    --mcb-radius-lg: 20px;
-    --mcb-radius-xl: 28px;
-    --mcb-shadow-soft: 0 24px 70px rgba(15, 23, 42, 0.75);
-    --mcb-transition: 200ms ease-out;
+    --mcb-shadow-soft: 0 24px 70px rgba(15, 23, 42, 0.8);
   }
 
+  /* GLOBAL OVERRIDES (white bar sorununu çözer) */
+  html,
+  body {
+    margin: 0;
+    padding: 0;
+    min-height: 100%;
+    background-color: var(--mcb-page-bg);
+    color: var(--mcb-text);
+    font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI",
+      sans-serif;
+  }
+
+  .site-header,
+  .site-footer,
+  .page-content {
+    background: transparent !important;
+    border: 0 !important;
+  }
+
+  .page-content {
+    padding-top: 0 !important;
+  }
+
+  .site-title,
+  a.site-title {
+    color: var(--mcb-text) !important;
+  }
+
+  .skip-link {
+    background: var(--mcb-bg);
+    color: var(--mcb-text);
+  }
+
+  a {
+    color: var(--mcb-accent);
+  }
+
+  /* THEME TOGGLE (sağ üst) */
+  .mcb-theme-toggle {
+    position: fixed;
+    top: 10px;
+    right: 16px;
+    z-index: 999;
+    border-radius: 999px;
+    border: 1px solid var(--mcb-border);
+    background: rgba(15, 23, 42, 0.04);
+    padding: 4px 8px;
+    display: inline-flex;
+    align-items: center;
+    gap: 4px;
+    cursor: pointer;
+    font-size: 0.8rem;
+    backdrop-filter: blur(16px);
+  }
+
+  :root[data-theme="dark"] .mcb-theme-toggle {
+    background: rgba(15, 23, 42, 0.92);
+  }
+
+  .mcb-theme-toggle-label {
+    font-size: 0.7rem;
+    color: var(--mcb-text-soft);
+  }
+
+  .mcb-theme-toggle-icon {
+    font-size: 1rem;
+    transition: opacity var(--mcb-transition), transform var(--mcb-transition);
+  }
+
+  .mcb-theme-toggle[data-theme="light"] .mcb-theme-toggle-icon.sun {
+    opacity: 1;
+    transform: translateY(0);
+  }
+
+  .mcb-theme-toggle[data-theme="light"] .mcb-theme-toggle-icon.moon {
+    opacity: 0;
+    transform: translateY(4px);
+  }
+
+  .mcb-theme-toggle[data-theme="dark"] .mcb-theme-toggle-icon.sun {
+    opacity: 0;
+    transform: translateY(-4px);
+  }
+
+  .mcb-theme-toggle[data-theme="dark"] .mcb-theme-toggle-icon.moon {
+    opacity: 1;
+    transform: translateY(0);
+  }
+
+  /* PAGE LAYOUT */
   .mcb-page {
     min-height: 100vh;
-    padding: 48px 16px 32px;
+    padding: 40px 16px 28px;
     background:
-      radial-gradient(circle at top left, rgba(34,197,94,0.15), transparent 55%),
-      radial-gradient(circle at bottom right, rgba(59,130,246,0.12), transparent 55%),
+      radial-gradient(circle at top left, rgba(34, 197, 94, 0.14), transparent 55%),
+      radial-gradient(circle at bottom right, rgba(59, 130, 246, 0.14), transparent 55%),
       var(--mcb-bg);
     color: var(--mcb-text);
     display: flex;
@@ -32,15 +167,23 @@ title: CodeWithMCB – Industrial IoT & Software
     box-sizing: border-box;
   }
 
+  :root[data-theme="light"] .mcb-page {
+    background:
+      radial-gradient(circle at top left, rgba(34, 197, 94, 0.18), transparent 55%),
+      radial-gradient(circle at bottom right, rgba(59, 130, 246, 0.14), transparent 55%),
+      var(--mcb-page-bg);
+  }
+
   .mcb-container {
     width: 100%;
-    max-width: 1080px;
+    max-width: 1100px;
     margin: 0 auto;
   }
 
+  /* HERO */
   .mcb-hero {
     display: grid;
-    grid-template-columns: minmax(0, 1.5fr) minmax(0, 1.1fr);
+    grid-template-columns: minmax(0, 1.6fr) minmax(0, 1.1fr);
     gap: 32px;
     align-items: center;
     margin-bottom: 40px;
@@ -52,38 +195,36 @@ title: CodeWithMCB – Industrial IoT & Software
     gap: 6px;
     padding: 4px 10px;
     border-radius: 999px;
-    background: rgba(15,23,42,0.9);
-    border: 1px solid rgba(148,163,184,0.4);
+    background: rgba(15, 23, 42, 0.04);
+    border: 1px solid var(--mcb-border);
     font-size: 0.75rem;
     color: var(--mcb-text-soft);
     backdrop-filter: blur(16px);
   }
 
-  .mcb-pill span {
-    font-size: 0.9em;
+  :root[data-theme="dark"] .mcb-pill {
+    background: rgba(15, 23, 42, 0.9);
   }
 
-  .mcb-hero h1 {
-    font-size: clamp(2.1rem, 3.1vw, 2.7rem);
-    line-height: 1.1;
-    margin: 14px 0 10px;
+  .mcb-name {
+    font-size: clamp(2.4rem, 4vw, 2.9rem);
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+    margin: 14px 0 4px;
   }
 
-  .mcb-hero h1 span {
-    color: var(--mcb-accent);
+  .mcb-role {
+    font-size: 1rem;
+    font-weight: 500;
+    color: var(--mcb-text-soft);
+    margin: 0 0 12px;
   }
 
   .mcb-hero-lead {
     font-size: 0.98rem;
     color: var(--mcb-text-soft);
-    max-width: 540px;
-    margin-bottom: 20px;
-  }
-
-  .mcb-hero-meta {
-    font-size: 0.78rem;
-    color: var(--mcb-text-soft);
-    margin-top: 8px;
+    max-width: 560px;
+    margin-bottom: 18px;
   }
 
   .mcb-hero-actions {
@@ -91,6 +232,13 @@ title: CodeWithMCB – Industrial IoT & Software
     flex-wrap: wrap;
     gap: 10px;
     align-items: center;
+    margin-bottom: 4px;
+  }
+
+  .mcb-hero-meta {
+    font-size: 0.78rem;
+    color: var(--mcb-text-soft);
+    margin-top: 4px;
   }
 
   .mcb-btn {
@@ -98,47 +246,55 @@ title: CodeWithMCB – Industrial IoT & Software
     align-items: center;
     justify-content: center;
     gap: 6px;
-    padding: 9px 16px;
+    padding: 10px 18px;
     border-radius: 999px;
     font-size: 0.9rem;
     font-weight: 500;
     text-decoration: none;
     border: 1px solid transparent;
-    transition: transform var(--mcb-transition), box-shadow var(--mcb-transition), background var(--mcb-transition), border-color var(--mcb-transition), color var(--mcb-transition);
     cursor: pointer;
     white-space: nowrap;
+    transition:
+      transform var(--mcb-transition),
+      box-shadow var(--mcb-transition),
+      background var(--mcb-transition),
+      border-color var(--mcb-transition),
+      color var(--mcb-transition);
   }
 
   .mcb-btn-primary {
     background: linear-gradient(135deg, #22c55e, #4ade80);
     color: #022c22;
-    box-shadow: 0 18px 40px rgba(34,197,94,0.35);
+    box-shadow: 0 18px 40px rgba(34, 197, 94, 0.35);
   }
 
   .mcb-btn-primary:hover {
     transform: translateY(-1px);
-    box-shadow: 0 22px 60px rgba(34,197,94,0.45);
+    box-shadow: 0 22px 60px rgba(34, 197, 94, 0.45);
   }
 
   .mcb-btn-secondary {
-    background: rgba(15,23,42,0.9);
+    background: rgba(15, 23, 42, 0.04);
     border-color: var(--mcb-border);
     color: var(--mcb-text-soft);
   }
 
+  :root[data-theme="dark"] .mcb-btn-secondary {
+    background: rgba(15, 23, 42, 0.92);
+  }
+
   .mcb-btn-secondary:hover {
-    background: rgba(15,23,42,1);
-    border-color: rgba(148,163,184,0.6);
+    border-color: rgba(148, 163, 184, 0.7);
   }
 
   .mcb-btn-ghost {
     background: transparent;
-    border-color: rgba(148,163,184,0.35);
+    border-color: rgba(148, 163, 184, 0.4);
     color: var(--mcb-text-soft);
   }
 
   .mcb-btn-ghost:hover {
-    background: rgba(15,23,42,0.8);
+    background: rgba(15, 23, 42, 0.06);
   }
 
   .mcb-hero-card {
@@ -171,11 +327,7 @@ title: CodeWithMCB – Industrial IoT & Software
     height: 7px;
     border-radius: 999px;
     background: #22c55e;
-    box-shadow: 0 0 10px rgba(34,197,94,0.8);
-  }
-
-  .mcb-hero-card-body {
-    margin-bottom: 10px;
+    box-shadow: 0 0 10px rgba(34, 197, 94, 0.8);
   }
 
   .mcb-hero-card-body h3 {
@@ -196,18 +348,21 @@ title: CodeWithMCB – Industrial IoT & Software
   }
 
   .mcb-pill-soft {
-    font-size: 0.70rem;
+    font-size: 0.7rem;
     padding: 4px 8px;
     border-radius: 999px;
-    background: rgba(15,23,42,0.9);
-    border: 1px solid rgba(148,163,184,0.35);
+    background: rgba(15, 23, 42, 0.03);
+    border: 1px solid rgba(148, 163, 184, 0.4);
     color: var(--mcb-text-soft);
   }
 
+  :root[data-theme="dark"] .mcb-pill-soft {
+    background: rgba(15, 23, 42, 0.92);
+  }
+
   .mcb-pill-soft--accent {
-    border-color: rgba(34,197,94,0.6);
+    border-color: rgba(34, 197, 94, 0.7);
     background: var(--mcb-accent-soft);
-    color: #bbf7d0;
   }
 
   .mcb-section {
@@ -240,12 +395,13 @@ title: CodeWithMCB – Industrial IoT & Software
     gap: 18px;
   }
 
-  .mcb-card {
+  .mcb-card,
+  .mcb-project-card {
     background: var(--mcb-card);
     border-radius: var(--mcb-radius-lg);
     border: 1px solid var(--mcb-border);
     padding: 16px 16px 14px;
-    box-shadow: 0 16px 45px rgba(15,23,42,0.7);
+    box-shadow: var(--mcb-shadow-soft);
     position: relative;
     overflow: hidden;
   }
@@ -255,7 +411,7 @@ title: CodeWithMCB – Industrial IoT & Software
     position: absolute;
     inset: 0;
     opacity: 0;
-    background: radial-gradient(circle at top left, rgba(34,197,94,0.16), transparent 60%);
+    background: radial-gradient(circle at top left, rgba(34, 197, 94, 0.16), transparent 60%);
     transition: opacity var(--mcb-transition);
     pointer-events: none;
   }
@@ -271,7 +427,7 @@ title: CodeWithMCB – Industrial IoT & Software
     display: inline-flex;
     align-items: center;
     justify-content: center;
-    background: rgba(34,197,94,0.1);
+    background: rgba(34, 197, 94, 0.1);
     margin-bottom: 6px;
     font-size: 1.15rem;
   }
@@ -304,11 +460,6 @@ title: CodeWithMCB – Industrial IoT & Software
   }
 
   .mcb-project-card {
-    background: var(--mcb-card);
-    border-radius: var(--mcb-radius-lg);
-    border: 1px solid var(--mcb-border);
-    padding: 16px 16px 14px;
-    box-shadow: 0 16px 45px rgba(15,23,42,0.7);
     display: flex;
     flex-direction: column;
     gap: 6px;
@@ -342,14 +493,13 @@ title: CodeWithMCB – Industrial IoT & Software
     font-size: 0.7rem;
     padding: 3px 7px;
     border-radius: 999px;
-    border: 1px solid rgba(148,163,184,0.4);
+    border: 1px solid rgba(148, 163, 184, 0.4);
     color: var(--mcb-text-soft);
   }
 
   .mcb-tag--accent {
-    border-color: rgba(34,197,94,0.6);
+    border-color: rgba(34, 197, 94, 0.7);
     background: var(--mcb-accent-soft);
-    color: #bbf7d0;
   }
 
   .mcb-split {
@@ -360,12 +510,16 @@ title: CodeWithMCB – Industrial IoT & Software
   }
 
   .mcb-highlight-card {
-    background: radial-gradient(circle at top left, rgba(34,197,94,0.16), rgba(15,23,42,0.96));
+    background: radial-gradient(circle at top left, rgba(34, 197, 94, 0.16), rgba(15, 23, 42, 0.96));
     border-radius: var(--mcb-radius-lg);
     border: 1px solid var(--mcb-border);
     padding: 14px 16px;
-    box-shadow: 0 18px 50px rgba(15,23,42,0.8);
+    box-shadow: var(--mcb-shadow-soft);
     font-size: 0.8rem;
+  }
+
+  :root[data-theme="light"] .mcb-highlight-card {
+    background: radial-gradient(circle at top left, rgba(34, 197, 94, 0.14), rgba(255, 255, 255, 0.98));
   }
 
   .mcb-highlight-card h3 {
@@ -383,8 +537,12 @@ title: CodeWithMCB – Industrial IoT & Software
   .mcb-metric {
     padding: 6px 8px;
     border-radius: 12px;
-    background: rgba(15,23,42,0.9);
-    border: 1px solid rgba(148,163,184,0.35);
+    background: rgba(15, 23, 42, 0.03);
+    border: 1px solid rgba(148, 163, 184, 0.35);
+  }
+
+  :root[data-theme="dark"] .mcb-metric {
+    background: rgba(15, 23, 42, 0.9);
   }
 
   .mcb-metric-label {
@@ -397,14 +555,127 @@ title: CodeWithMCB – Industrial IoT & Software
     font-weight: 600;
   }
 
+  /* YOUTUBE – BIG CAROUSEL */
+  .mcb-youtube {
+    margin-top: 6px;
+  }
+
+  .mcb-carousel {
+    background: var(--mcb-card);
+    border-radius: var(--mcb-radius-xl);
+    border: 1px solid var(--mcb-border);
+    box-shadow: var(--mcb-shadow-soft);
+    padding: 16px;
+  }
+
+  .mcb-slide {
+    display: none;
+    grid-template-columns: minmax(0, 2fr) minmax(0, 1.4fr);
+    gap: 18px;
+    align-items: stretch;
+  }
+
+  .mcb-slide-active {
+    display: grid;
+  }
+
+  .mcb-video-frame {
+    position: relative;
+    padding-top: 56.25%;
+    border-radius: 18px;
+    overflow: hidden;
+    background: #000;
+  }
+
+  .mcb-video-frame iframe {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    border: 0;
+  }
+
+  .mcb-slide-meta {
+    font-size: 0.82rem;
+    color: var(--mcb-text-soft);
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+  }
+
+  .mcb-slide-meta h3 {
+    font-size: 0.95rem;
+    margin: 0 0 4px;
+    color: var(--mcb-text);
+  }
+
+  .mcb-slide-meta p {
+    margin: 0 0 10px;
+  }
+
+  .mcb-carousel-controls {
+    margin-top: 12px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 6px;
+    font-size: 0.78rem;
+    color: var(--mcb-text-soft);
+  }
+
+  .mcb-carousel-arrow {
+    border-radius: 999px;
+    border: 1px solid var(--mcb-border);
+    background: rgba(15, 23, 42, 0.04);
+    padding: 5px 10px;
+    cursor: pointer;
+    font-size: 0.78rem;
+  }
+
+  :root[data-theme="dark"] .mcb-carousel-arrow {
+    background: rgba(15, 23, 42, 0.9);
+  }
+
+  .mcb-carousel-arrow:hover {
+    border-color: rgba(148, 163, 184, 0.7);
+  }
+
+  .mcb-dots {
+    display: flex;
+    gap: 6px;
+    align-items: center;
+    justify-content: center;
+    flex: 1;
+  }
+
+  .mcb-dot {
+    width: 8px;
+    height: 8px;
+    border-radius: 999px;
+    border: 1px solid rgba(148, 163, 184, 0.5);
+    background: transparent;
+    padding: 0;
+    cursor: pointer;
+  }
+
+  .mcb-dot.active {
+    background: var(--mcb-accent);
+    border-color: var(--mcb-accent);
+  }
+
+  /* CONTACT */
   .mcb-contact {
     margin-top: 32px;
     text-align: center;
     padding: 20px 18px 10px;
-    background: rgba(15,23,42,0.92);
+    background: rgba(15, 23, 42, 0.04);
     border-radius: var(--mcb-radius-xl);
     border: 1px solid var(--mcb-border);
-    box-shadow: 0 18px 55px rgba(15,23,42,0.85);
+    box-shadow: var(--mcb-shadow-soft);
+  }
+
+  :root[data-theme="dark"] .mcb-contact {
+    background: rgba(15, 23, 42, 0.94);
   }
 
   .mcb-contact p {
@@ -429,23 +700,23 @@ title: CodeWithMCB – Industrial IoT & Software
     margin-top: 10px;
   }
 
-  .mcb-link-underline {
-    text-decoration: underline;
-    text-decoration-style: dotted;
-    text-decoration-color: rgba(148,163,184,0.6);
-    text-underline-offset: 3px;
-  }
-
+  /* RESPONSIVE */
   @media (max-width: 900px) {
     .mcb-hero {
       grid-template-columns: minmax(0, 1fr);
     }
+
     .mcb-hero-card {
       order: -1;
     }
+
     .mcb-grid,
     .mcb-projects {
       grid-template-columns: repeat(2, minmax(0, 1fr));
+    }
+
+    .mcb-slide {
+      grid-template-columns: minmax(0, 1fr);
     }
   }
 
@@ -453,57 +724,67 @@ title: CodeWithMCB – Industrial IoT & Software
     .mcb-page {
       padding-top: 32px;
     }
-    .mcb-hero {
-      gap: 20px;
-    }
+
     .mcb-section {
       margin-top: 24px;
     }
+
     .mcb-section-header {
       flex-direction: column;
       align-items: flex-start;
     }
+
     .mcb-grid,
     .mcb-projects {
       grid-template-columns: minmax(0, 1fr);
     }
+
     .mcb-split {
       grid-template-columns: minmax(0, 1fr);
     }
+
     .mcb-contact {
       padding: 18px 14px 10px;
     }
   }
 </style>
 
+<button class="mcb-theme-toggle" type="button" aria-label="Tema değiştir">
+  <span class="mcb-theme-toggle-label">Tema</span>
+  <span class="mcb-theme-toggle-icon sun">☀</span>
+  <span class="mcb-theme-toggle-icon moon">🌙</span>
+</button>
+
 <div class="mcb-page">
   <div class="mcb-container">
-
     <!-- HERO -->
     <section class="mcb-hero">
       <div>
         <div class="mcb-pill">
           <span>🧠</span> Industrial IoT · Yazılım · Otomasyon
         </div>
-        <h1>
-          Endüstriyel <span>IoT</span>, veri ve otomasyonu
-          <br />aynı sahada buluşturuyorum.
-        </h1>
+        <h1 class="mcb-name">Murat Can BERBER</h1>
+        <p class="mcb-role">Industrial IoT &amp; Software Engineer</p>
         <p class="mcb-hero-lead">
-          Üretim hatlarından enerji izlemeye kadar; gerçek zamanlı veri, sağlam yazılım mimarisi
-          ve güvenilir altyapı ile <strong>ölçeklenebilir IIoT çözümleri</strong> tasarlıyorum.
+          Üretim hatlarından enerji izlemeye kadar; gerçek zamanlı veri, sağlam yazılım
+          mimarisi ve güvenilir altyapı ile
+          <strong>ölçeklenebilir IIoT çözümleri</strong> tasarlıyorum.
         </p>
 
         <div class="mcb-hero-actions">
-          <a href="https://www.youtube.com/@CodeWithMCB" class="mcb-btn mcb-btn-primary" target="_blank" rel="noopener">
+          <a href="https://www.youtube.com/@CodeWithMCB"
+             class="mcb-btn mcb-btn-primary"
+             target="_blank" rel="noopener">
             ▶ YouTube – CodeWithMCB
           </a>
-          <a href="https://www.linkedin.com/in/" class="mcb-btn mcb-btn-secondary" target="_blank" rel="noopener">
+          <a href="https://www.linkedin.com/in/"
+             class="mcb-btn mcb-btn-secondary"
+             target="_blank" rel="noopener">
             in LinkedIn Profilim
           </a>
-          <span class="mcb-hero-meta">
-            +10 yıl IIoT & PTC ekosistemi · ThingWorx · Kepware · PostgreSQL
-          </span>
+        </div>
+        <div class="mcb-hero-meta">
+          +10 yıl IIoT &amp; PTC ekosistemi · ThingWorx · Kepware · PostgreSQL / TimescaleDB
         </div>
       </div>
 
@@ -513,7 +794,9 @@ title: CodeWithMCB – Industrial IoT & Software
             <span class="mcb-status-dot"></span>
             Şu an odaklandığım başlıklar
           </div>
-          <span style="font-size:0.72rem; color:var(--mcb-text-soft);">2025 roadmap</span>
+          <span style="font-size: 0.72rem; color: var(--mcb-text-soft);">
+            2025 roadmap
+          </span>
         </div>
         <div class="mcb-hero-card-body">
           <h3>Smart factory, veri ve otomasyon</h3>
@@ -524,7 +807,7 @@ title: CodeWithMCB – Industrial IoT & Software
           </p>
           <div class="mcb-badge-row">
             <span class="mcb-pill-soft mcb-pill-soft--accent">Gerçek zamanlı izleme</span>
-            <span class="mcb-pill-soft">Enerji & üretim verisi</span>
+            <span class="mcb-pill-soft">Enerji &amp; üretim verisi</span>
             <span class="mcb-pill-soft">Endüstriyel entegrasyon</span>
           </div>
         </div>
@@ -536,29 +819,29 @@ title: CodeWithMCB – Industrial IoT & Software
       <div class="mcb-section-header">
         <h2>Uzmanlık Alanlarım</h2>
         <p>
-          Saha verisinden buluta; <strong>IoT platformları</strong>, <strong>backend geliştirme</strong> ve
-          <strong>veri mühendisliği</strong> ekseninde uçtan uca çözümler tasarlıyorum.
+          Saha verisinden buluta; <strong>IoT platformları</strong>, <strong>backend geliştirme</strong>
+          ve <strong>veri mühendisliği</strong> ekseninde uçtan uca çözümler tasarlıyorum.
         </p>
       </div>
 
       <div class="mcb-grid">
         <article class="mcb-card">
           <div class="mcb-card-icon">🏭</div>
-          <h3>Industrial IoT & Otomasyon</h3>
+          <h3>Industrial IoT &amp; Otomasyon</h3>
           <ul>
             <li><strong>ThingWorx</strong> uygulama geliştirme</li>
             <li>Kepware ile saha entegrasyonları</li>
-            <li>Gerçek zamanlı üretim & enerji izleme</li>
-            <li>Alarm, event & condition monitoring</li>
+            <li>Gerçek zamanlı üretim &amp; enerji izleme</li>
+            <li>Alarm, event &amp; condition monitoring</li>
           </ul>
         </article>
 
         <article class="mcb-card">
           <div class="mcb-card-icon">💻</div>
-          <h3>Yazılım Mimarisi & Backend</h3>
+          <h3>Yazılım Mimarisi &amp; Backend</h3>
           <ul>
-            <li><strong>Python</strong> & modern web stack</li>
-            <li>REST API & entegrasyon katmanları</li>
+            <li><strong>Python</strong> &amp; modern web stack</li>
+            <li>REST API &amp; entegrasyon katmanları</li>
             <li>Mikroservis ve container tabanlı yapılar</li>
             <li>Endüstriyel sistemler için sağlam backend</li>
           </ul>
@@ -566,14 +849,114 @@ title: CodeWithMCB – Industrial IoT & Software
 
         <article class="mcb-card">
           <div class="mcb-card-icon">🗄️</div>
-          <h3>Veri & Database Mühendisliği</h3>
+          <h3>Veri &amp; Database Mühendisliği</h3>
           <ul>
             <li><strong>PostgreSQL / TimescaleDB</strong> tasarımı</li>
             <li>Zaman serisi veri modelleme</li>
-            <li>Performans & partitioning optimizasyonu</li>
-            <li>High-availability & replikasyon</li>
+            <li>Performans &amp; partitioning optimizasyonu</li>
+            <li>High-availability &amp; replikasyon</li>
           </ul>
         </article>
+      </div>
+    </section>
+
+    <!-- YOUTUBE – BÜYÜK BÖLÜM -->
+    <section class="mcb-section">
+      <div class="mcb-section-header">
+        <h2>YouTube – CodeWithMCB</h2>
+        <p>
+          Gerçek projelerden beslenen, IIoT, veri ve modern geliştirici araçları odaklı
+          Türkçe içerikler. Öne çıkan birkaç videom:
+        </p>
+      </div>
+
+      <div class="mcb-youtube">
+        <div class="mcb-carousel" data-active="0">
+          <div class="mcb-slide mcb-slide-active" data-index="0">
+            <div class="mcb-video-frame">
+              <iframe
+                src="https://www.youtube.com/embed/gUchx_a3V3Q"
+                title="PostgreSQL Partitioning"
+                loading="lazy"
+                allowfullscreen
+              ></iframe>
+            </div>
+            <div class="mcb-slide-meta">
+              <div>
+                <h3>PostgreSQL Partitioning – Gerçek Dünya Kullanımı</h3>
+                <p>
+                  Büyük veri setleriyle çalışan sistemler için partitioning stratejileri,
+                  performans karşılaştırmaları ve TimescaleDB bağlantısı.
+                </p>
+              </div>
+              <div class="mcb-tag-row">
+                <span class="mcb-tag mcb-tag--accent">PostgreSQL</span>
+                <span class="mcb-tag">TimescaleDB</span>
+                <span class="mcb-tag">Performans</span>
+              </div>
+            </div>
+          </div>
+
+          <div class="mcb-slide" data-index="1">
+            <div class="mcb-video-frame">
+              <iframe
+                src="https://www.youtube.com/embed/fgWlqZIBotY"
+                title="Node-RED CRUD & HTTP"
+                loading="lazy"
+                allowfullscreen
+              ></iframe>
+            </div>
+            <div class="mcb-slide-meta">
+              <div>
+                <h3>Node-RED ile HTTP &amp; CRUD Uygulaması</h3>
+                <p>
+                  Endüstriyel veri ve Postgres’i birleştiren, Node-RED tabanlı pratik
+                  backend akışı. Low-code ile hızlı prototip ve entegrasyon örnekleri.
+                </p>
+              </div>
+              <div class="mcb-tag-row">
+                <span class="mcb-tag mcb-tag--accent">Node-RED</span>
+                <span class="mcb-tag">PostgreSQL</span>
+                <span class="mcb-tag">Low-Code</span>
+              </div>
+            </div>
+          </div>
+
+          <div class="mcb-slide" data-index="2">
+            <div class="mcb-video-frame">
+              <iframe
+                src="https://www.youtube.com/embed/Dzo8hJpKqxw"
+                title="20 Dakikada Docker"
+                loading="lazy"
+                allowfullscreen
+              ></iframe>
+            </div>
+            <div class="mcb-slide-meta">
+              <div>
+                <h3>20 Dakikada Docker – Temelden Pratiğe</h3>
+                <p>
+                  Geliştiriciler ve DevOps tarafı için Docker’a hızlı giriş:
+                  temel kavramlar, CLI kullanımı ve pratik konteyner senaryoları.
+                </p>
+              </div>
+              <div class="mcb-tag-row">
+                <span class="mcb-tag mcb-tag--accent">Docker</span>
+                <span class="mcb-tag">DevOps</span>
+                <span class="mcb-tag">Konteyner</span>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="mcb-carousel-controls">
+          <button class="mcb-carousel-arrow" data-dir="prev">← Önceki</button>
+          <div class="mcb-dots">
+            <button class="mcb-dot active" data-index="0"></button>
+            <button class="mcb-dot" data-index="1"></button>
+            <button class="mcb-dot" data-index="2"></button>
+          </div>
+          <button class="mcb-carousel-arrow" data-dir="next">Sonraki →</button>
+        </div>
       </div>
     </section>
 
@@ -594,7 +977,7 @@ title: CodeWithMCB – Industrial IoT & Software
             <h3>Smart Factory Monitoring</h3>
           </div>
           <p>
-            Üretim hattı için <strong>gerçek zamanlı OEE & duruş izleme</strong> sistemi.
+            Üretim hattı için <strong>gerçek zamanlı OEE &amp; duruş izleme</strong> sistemi.
             ThingWorx dashboardları, Kepware üzerinden PLC entegrasyonları ve alarm yönetimi.
           </p>
           <div class="mcb-tag-row">
@@ -623,7 +1006,7 @@ title: CodeWithMCB – Industrial IoT & Software
         <article class="mcb-project-card">
           <div class="mcb-project-title-row">
             <div class="mcb-card-icon">📊</div>
-            <h3>IoT Analytics & Dashboarding</h3>
+            <h3>IoT Analytics &amp; Dashboarding</h3>
           </div>
           <p>
             Üretim ve enerji verilerini görselleştiren <strong>özelleştirilmiş dashboardlar</strong>,
@@ -641,7 +1024,7 @@ title: CodeWithMCB – Industrial IoT & Software
     <!-- İÇERİK & TOPLULUK -->
     <section class="mcb-section">
       <div class="mcb-section-header">
-        <h2>İçerik & Topluluk</h2>
+        <h2>İçerik &amp; Topluluk</h2>
         <p>
           YouTube ve diğer kanallarda; endüstriyel IoT, veri mühendisliği ve modern geliştirici
           araçları üzerine pratik ve sahaya dönük içerikler üretiyorum.
@@ -650,24 +1033,24 @@ title: CodeWithMCB – Industrial IoT & Software
 
       <div class="mcb-split">
         <div>
-          <p style="font-size:0.85rem; color:var(--mcb-text-soft); margin-bottom:10px;">
+          <p style="font-size: 0.85rem; color: var(--mcb-text-soft); margin-bottom: 10px;">
             Amacım; <strong>“gerçek projelerde kullanılan”</strong> yaklaşımları, sade ama
             detaycı bir anlatımla paylaşmak. Teoride kalmayan, doğrudan işe uygulanabilir içerikler…
           </p>
 
-          <div class="mcb-tag-row" style="margin-top:6px;">
+          <div class="mcb-tag-row" style="margin-top: 6px;">
             <span class="mcb-tag">IIoT mimarileri</span>
-            <span class="mcb-tag">PostgreSQL & TimescaleDB</span>
-            <span class="mcb-tag">Python & otomasyon</span>
-            <span class="mcb-tag">Observability & monitoring</span>
+            <span class="mcb-tag">PostgreSQL &amp; TimescaleDB</span>
+            <span class="mcb-tag">Python &amp; otomasyon</span>
+            <span class="mcb-tag">Observability &amp; monitoring</span>
           </div>
 
-          <p style="font-size:0.8rem; color:var(--mcb-text-soft); margin-top:10px;">
+          <p style="font-size: 0.8rem; color: var(--mcb-text-soft); margin-top: 10px;">
             YouTube kanalım üzerinden yeni videoları takip edebilir veya LinkedIn üzerinden
             tartışmalara katılabilirsiniz.
           </p>
 
-          <div style="margin-top:8px; display:flex; flex-wrap:wrap; gap:8px;">
+          <div style="margin-top: 8px; display: flex; flex-wrap: wrap; gap: 8px;">
             <a href="https://www.youtube.com/@CodeWithMCB"
                class="mcb-btn mcb-btn-secondary"
                target="_blank" rel="noopener">
@@ -683,11 +1066,11 @@ title: CodeWithMCB – Industrial IoT & Software
 
         <aside class="mcb-highlight-card">
           <h3>Kimlerle konuşmalıyız?</h3>
-          <p style="margin:4px 0 6px;">
+          <p style="margin: 4px 0 6px;">
             Aşağıdaki başlıklardan biri gündemindeyse, konuşacak çok şeyimiz var:
           </p>
 
-          <ul style="list-style:none; padding:0; margin:0; font-size:0.78rem; color:var(--mcb-text-soft);">
+          <ul style="list-style: none; padding: 0; margin: 0; font-size: 0.78rem; color: var(--mcb-text-soft);">
             <li>• Mevcut üretim hattınızı gerçek zamanlı izlemek istiyorsanız,</li>
             <li>• Enerji tüketiminizi veri odaklı yönetmek istiyorsanız,</li>
             <li>• ThingWorx, Kepware veya PostgreSQL tarafında mimari desteğe ihtiyacınız varsa.</li>
@@ -700,11 +1083,11 @@ title: CodeWithMCB – Industrial IoT & Software
             </div>
             <div class="mcb-metric">
               <div class="mcb-metric-label">Odak</div>
-              <div class="mcb-metric-value">IIoT & veri</div>
+              <div class="mcb-metric-value">IIoT &amp; veri</div>
             </div>
             <div class="mcb-metric">
               <div class="mcb-metric-label">Çalışma şekli</div>
-              <div class="mcb-metric-value">Uzaktan & hibrit</div>
+              <div class="mcb-metric-value">Uzaktan &amp; hibrit</div>
             </div>
           </div>
         </aside>
@@ -727,7 +1110,7 @@ title: CodeWithMCB – Industrial IoT & Software
           in LinkedIn üzerinden bağlantı kur
         </a>
       </div>
-      <p style="font-size:0.78rem; color:var(--mcb-text-soft); margin-top:4px;">
+      <p style="font-size: 0.78rem; color: var(--mcb-text-soft); margin-top: 4px;">
         Tercihen: kısa proje özeti, mevcut durum ve hedefleriniz.
       </p>
     </section>
@@ -737,3 +1120,94 @@ title: CodeWithMCB – Industrial IoT & Software
     </footer>
   </div>
 </div>
+
+<script>
+  // Tema başlatma
+  (function () {
+    var STORAGE_KEY = "mcb-theme";
+    var root = document.documentElement;
+    var stored = localStorage.getItem(STORAGE_KEY);
+    var prefersDark =
+      window.matchMedia &&
+      window.matchMedia("(prefers-color-scheme: dark)").matches;
+
+    var initial = stored || (prefersDark ? "dark" : "light");
+    root.setAttribute("data-theme", initial);
+
+    var toggle = document.querySelector(".mcb-theme-toggle");
+    if (!toggle) return;
+
+    var updateToggle = function () {
+      var theme = root.getAttribute("data-theme");
+      toggle.setAttribute("data-theme", theme);
+    };
+    updateToggle();
+
+    toggle.addEventListener("click", function () {
+      var current = root.getAttribute("data-theme") === "dark" ? "dark" : "light";
+      var next = current === "dark" ? "light" : "dark";
+      root.setAttribute("data-theme", next);
+      localStorage.setItem(STORAGE_KEY, next);
+      updateToggle();
+    });
+  })();
+
+  // YouTube carousel
+  (function () {
+    var carousel = document.querySelector(".mcb-carousel");
+    if (!carousel) return;
+
+    var slides = Array.prototype.slice.call(
+      carousel.querySelectorAll(".mcb-slide")
+    );
+    if (!slides.length) return;
+
+    var dots = Array.prototype.slice.call(
+      document.querySelectorAll(".mcb-dot")
+    );
+    var index = 0;
+
+    function show(i) {
+      slides[index].classList.remove("mcb-slide-active");
+      index = (i + slides.length) % slides.length;
+      slides[index].classList.add("mcb-slide-active");
+      dots.forEach(function (d, idx) {
+        d.classList.toggle("active", idx === index);
+      });
+    }
+
+    var prev = document.querySelector('.mcb-carousel-arrow[data-dir="prev"]');
+    var next = document.querySelector('.mcb-carousel-arrow[data-dir="next"]');
+
+    if (prev) {
+      prev.addEventListener("click", function () {
+        show(index - 1);
+        resetTimer();
+      });
+    }
+    if (next) {
+      next.addEventListener("click", function () {
+        show(index + 1);
+        resetTimer();
+      });
+    }
+
+    dots.forEach(function (dot, idx) {
+      dot.addEventListener("click", function () {
+        show(idx);
+        resetTimer();
+      });
+    });
+
+    var timer = setInterval(function () {
+      show(index + 1);
+    }, 12000);
+
+    function resetTimer() {
+      clearInterval(timer);
+      timer = setInterval(function () {
+        show(index + 1);
+      }, 12000);
+    }
+  })();
+</script>
